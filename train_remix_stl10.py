@@ -196,8 +196,8 @@ def main():
 
     # Default values for ReMixMatch and DARP
     emp_distb_u = torch.ones(num_class) / num_class
-    pseudo_orig = torch.ones(len(datasets["unlabeled"].targets), num_class) / num_class
-    pseudo_refine = torch.ones(len(datasets["unlabeled"].targets), num_class) / num_class
+    pseudo_orig = torch.ones(len(datasets["unlabeled"].labels), num_class) / num_class
+    pseudo_refine = torch.ones(len(datasets["unlabeled"].labels), num_class) / num_class
 
     # emp_distb_u = torch.ones(num_class) / num_class
     # pseudo_orig = torch.ones(len(train_unlabeled_set.targets), num_class) / num_class
@@ -221,7 +221,7 @@ def main():
             with open(args.est_path, "r") as f:
                 p_target = json.loads(f.read())
                 p_target = torch.tensor(p_target["distribution"])
-                est_disb = p_target * len(datasets["unlabeled"].targets)
+                est_disb = p_target * len(datasets["unlabeled"].labels)
                 est_disb = est_disb.cpu().numpy()
             target_disb = sum(U_SAMPLES_PER_CLASS) * torch.Tensor(est_disb) / np.sum(est_disb)
         # Use the inferred distribution with labeled data
