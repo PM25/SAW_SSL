@@ -1,6 +1,8 @@
 # A simple torch style logger
 # (C) Wei YANG 2017
 from __future__ import absolute_import
+import matplotlib
+matplotlib.use('TkAgg')
 import matplotlib.pyplot as plt
 import os
 import sys
@@ -127,4 +129,4 @@ if __name__ == '__main__':
 
     monitor = LoggerMonitor(paths)
     monitor.plot(names=field)
-    savefig('test.eps')
+    # savefig('test.eps')

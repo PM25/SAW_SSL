@@ -201,7 +201,7 @@ if __name__ == '__main__':
     U_SAMPLES_PER_CLASS = make_imb_data(ratio * num_max, num_class, imb_ratio_u) # ground truth unlabeled
     IMB_TEST_PER_CLASS = make_imb_data(1000, num_class, imb_ratio_u) # test dataset
 
-    datasets = get_stl10('/root/data', N_SAMPLES_PER_CLASS,
+    datasets = get_stl10('./data', N_SAMPLES_PER_CLASS,
                                                         U_SAMPLES_PER_CLASS, IMB_TEST_PER_CLASS)
 
     print("Dictionary of Datasets", datasets)

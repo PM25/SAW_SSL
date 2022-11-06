@@ -158,9 +158,9 @@ def main():
     
     distb_dict = gtDict(N_SAMPLES_PER_CLASS_T, U_SAMPLES_PER_CLASS, use_cuda) # Collect Ground Truth Distribution
 
-    # datasets = dataset.get_cifar10('/root/data', N_SAMPLES_PER_CLASS,
+    # datasets = dataset.get_cifar10('./data', N_SAMPLES_PER_CLASS,
     #                                                     U_SAMPLES_PER_CLASS, IMB_TEST_PER_CLASS)
-    datasets = dataset.get_cifar100('/root/data', N_SAMPLES_PER_CLASS,
+    datasets = dataset.get_cifar100('./data', N_SAMPLES_PER_CLASS,
                                                         U_SAMPLES_PER_CLASS, IMB_TEST_PER_CLASS)
 
     dataLoaders = prepareDataLoaders(datasets, args.batch_size)

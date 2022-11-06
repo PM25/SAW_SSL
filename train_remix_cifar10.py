@@ -70,6 +70,7 @@ parser.add_argument('--warm', type=int, default=200,  help='Number of warm up ep
 parser.add_argument('--alpha', default=2.0, type=float, help='hyperparameter for removing noisy entries')
 parser.add_argument('--darp', action='store_true', help='Applying DARP')
 parser.add_argument('--est', action='store_true', help='Using estimated distribution for unlabeled dataset')
+parser.add_argument('--est_path', type=str)
 parser.add_argument('--iter_T', type=int, default=10, help='Number of iteration (T) for DARP')
 parser.add_argument('--num_iter', type=int, default=10, help='Scheduling for updating pseudo-labels')
 
@@ -114,9 +115,9 @@ def main():
     IMB_TEST_PER_CLASS = make_imb_data(1000, num_class, args.imb_ratio_u) # test dataset
     distb_dict = gtDict(N_SAMPLES_PER_CLASS_T, U_SAMPLES_PER_CLASS, use_cuda) # Collect Ground Truth Distribution
 
-    datasets = dataset.get_cifar10('/root/data', N_SAMPLES_PER_CLASS,
+    datasets = dataset.get_cifar10('./data', N_SAMPLES_PER_CLASS,
                                                         U_SAMPLES_PER_CLASS, IMB_TEST_PER_CLASS)
-    # datasets = dataset.get_cifar100('/root/data', N_SAMPLES_PER_CLASS,
+    # datasets = dataset.get_cifar100('./data', N_SAMPLES_PER_CLASS,
     #                                                     U_SAMPLES_PER_CLASS, IMB_TEST_PER_CLASS)
 
     dataLoaders = prepareDataLoaders(datasets, args.batch_size)
@@ -211,8 +212,17 @@ def main():
 
         # Use the estimated distribution of unlabeled data
         if args.est:
-            est_name = './estimation/cifar10@N_1500_r_{}_{}_estim.npy'.format(args.imb_ratio_l, args.imb_ratio_u)
-            est_disb = np.load(est_name)
+            # est_name = './estimation/cifar10@N_1500_r_{}_{}_estim.npy'.format(args.imb_ratio_l, args.imb_ratio_u)
+            # est_disb = np.load(est_name)
+            # p(y) based on the labeled examples seen during training
+            import json
+            from pathlib import Path
+            assert Path(args.est_path).exists(), f"Can't Find the Distribution Estimation at {args.ulb_dist_path}"
+            with open(args.est_path, "r") as f:
+                p_target = json.loads(f.read())
+                p_target = torch.tensor(p_target["distribution"])
+                est_disb = p_target * len(datasets["unlabeled"].targets)
+                est_disb = est_disb.cpu().numpy()
             target_disb = sum(U_SAMPLES_PER_CLASS) * torch.Tensor(est_disb) / np.sum(est_disb)
         # Use the inferred distribution with labeled data
         else:
