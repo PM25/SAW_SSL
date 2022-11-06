@@ -522,8 +522,8 @@ def validate(valloader, model, criterion, use_cuda, mode):
     end = time.time()
     bar = Bar(f'{mode}', max=len(valloader))
 
-    classwise_correct = torch.zeros(num_class)
-    classwise_num = torch.zeros(num_class)
+    classwise_correct = torch.zeros(num_class).cuda()
+    classwise_num = torch.zeros(num_class).cuda()
     section_acc = torch.zeros(3)
 
     with torch.no_grad():
@@ -547,9 +547,9 @@ def validate(valloader, model, criterion, use_cuda, mode):
             pred_label = outputs.max(1)[1]
             pred_mask = (targets == pred_label).float()
             for i in range(num_class):
-                class_mask = (targets == i).float()
+                class_mask = (targets == i).float().cuda()
 
-                classwise_correct[i] += (class_mask * pred_mask).sum()
+                classwise_correct[i] += (class_mask * pred_mask.cuda()).sum()
                 classwise_num[i] += class_mask.sum()
 
              # measure elapsed time
