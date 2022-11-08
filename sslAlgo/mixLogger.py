@@ -95,7 +95,7 @@ def appendLogger(stats, dojoStats, distb_dict, loggerDict, printer=False) :
 
 def closeLogger(loggerDict) :
     for key in loggerDict :
-        loggerDict[logger].close()
+        loggerDict[key].close()
     
     # loggerDict["logger"].close()
     # loggerDict["pseudo"].close()
