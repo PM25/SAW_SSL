@@ -515,10 +515,10 @@ def validate(valloader, model, criterion, use_cuda, mode):
 
             # classwise prediction
             pred_label = outputs.max(1)[1] # torch.Size([16])
-            pred_mask = (targets == pred_label).float() # torch.Size([16])
+            pred_mask = (targets == pred_label).float().cuda() # torch.Size([16])
             
             for i in range(num_class):
-                class_mask = (targets == i).float()
+                class_mask = (targets == i).float().cuda()
 
                 classwise_correct[i] += (class_mask * pred_mask).sum()
                 classwise_num[i] += class_mask.sum()
