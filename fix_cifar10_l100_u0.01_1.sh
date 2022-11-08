@@ -20,7 +20,7 @@ LEARNING_RATE=0.002
 W_DECAY=0   # For Adam/SGD Optimizer
 
 # Method Options (Class Dataset & Model Settings)
-NUM_MAX=450    # 1500 for CIFAR-10, 150 for CIFAR-100, 450 for STL-10
+NUM_MAX=1500    # 1500 for CIFAR-10, 150 for CIFAR-100, 450 for STL-10
 RATIO=2.0
 IMB_L=100
 IMB_U=-100        # Not Relevant in STL-10 (Only used in Dojo Test Settings)
