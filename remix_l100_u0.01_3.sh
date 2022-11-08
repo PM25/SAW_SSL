@@ -5,7 +5,7 @@
 #########################################
 
 # Variables
-FOLDERNAME="100_u0.01_s0"
+FOLDERNAME="100_u0.01_s3"
 DATASET="cifar10"       # "cifar10" for CIFAR-10, "cifar100" for CIFAR100
 BASEDIR="experiments"
 FOLDERDIR="${BASEDIR}/${DATASET}/RemixMatch/${FOLDERNAME}"
@@ -13,7 +13,7 @@ SETTINGTXT="${FOLDERDIR}/details.txt"
 PROGRESSTXT="${FOLDERDIR}/progress.txt"
 
 # Experiment Settings
-EPOCHS=300
+EPOCHS=500
 START=0
 BATCH=64
 LEARNING_RATE=0.002
@@ -41,10 +41,10 @@ ALPHA=2.0
 DARP="" # "--darp" to use DARP, "" to NOT use DARP
 EST="--est" # "--est" to use Estimated Distribution for Unlabeled Dataset
         # "" to NOT use Estimated Distribution for Unlabeled Dataset
-EST_PATH="./dist_estimation/cifar10_n1500_m3000_l100_u1_long_s0/MLLS_BCTS_estimation.json"
+EST_PATH="./dist_estimation/cifar10_n1500_m3000_l100_u1_long_s3/MLLS_BCTS_estimation.json"
 ITER_T=10
 NUM_ITER=10
-SEED=0
+SEED=3
 
 # Settings Used for Weighted Loss based on Class Distribution
 W_L="--effective"   # "--total" to use Total (Class/Total) Weighting Scheme (W_L = [1, CONST+1])

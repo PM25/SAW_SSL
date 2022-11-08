@@ -41,7 +41,7 @@ ALPHA=2.0
 DARP="" # "--darp" to use DARP, "" to NOT use DARP
 EST="--est" # "--est" to use Estimated Distribution for Unlabeled Dataset
         # "" to NOT use Estimated Distribution for Unlabeled Dataset
-EST_PATH="./dist_estimation/stl10_n450_l10_long_s0/MLLS_BCTS_estimation.json"
+EST_PATH="./dist_estimation/stl10_n450_l10_long_s1/MLLS_BCTS_estimation.json"
 ITER_T=10
 NUM_ITER=10
 SEED=1

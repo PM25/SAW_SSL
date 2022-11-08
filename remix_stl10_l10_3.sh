@@ -5,25 +5,25 @@
 #########################################
 
 # Variables
-FOLDERNAME="100_u100_s0"
-DATASET="cifar10"       # "cifar10" for CIFAR-10, "cifar100" for CIFAR100
+FOLDERNAME="stl10_l10_s3"
+DATASET="stl10"       # "cifar10" for CIFAR-10, "cifar100" for CIFAR100
 BASEDIR="experiments"
 FOLDERDIR="${BASEDIR}/${DATASET}/RemixMatch/${FOLDERNAME}"
 SETTINGTXT="${FOLDERDIR}/details.txt"
 PROGRESSTXT="${FOLDERDIR}/progress.txt"
 
 # Experiment Settings
-EPOCHS=300
+EPOCHS=500
 START=0
 BATCH=64
 LEARNING_RATE=0.002
 W_DECAY=0   # For Adam/SGD Optimizer
 
 # Method Options (Class Dataset & Model Settings)
-NUM_MAX=1500    # 1500 for CIFAR-10, 150 for CIFAR-100
+NUM_MAX=450    # 1500 for CIFAR-10, 150 for CIFAR-100
 RATIO=2.0
-IMB_L=100
-IMB_U=100
+IMB_L=10
+IMB_U=10
 VAL_ITER=500
 
 # Hyperparameters for RemixMatch
@@ -41,10 +41,10 @@ ALPHA=2.0
 DARP="" # "--darp" to use DARP, "" to NOT use DARP
 EST="--est" # "--est" to use Estimated Distribution for Unlabeled Dataset
         # "" to NOT use Estimated Distribution for Unlabeled Dataset
-EST_PATH="./dist_estimation/cifar10_n1500_m3000_l100_u1_long_s0/MLLS_BCTS_estimation.json"
+EST_PATH="./dist_estimation/stl10_n450_l10_long_s3/MLLS_BCTS_estimation.json"
 ITER_T=10
 NUM_ITER=10
-SEED=0
+SEED=3
 
 # Settings Used for Weighted Loss based on Class Distribution
 W_L="--effective"   # "--total" to use Total (Class/Total) Weighting Scheme (W_L = [1, CONST+1])
