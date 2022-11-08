@@ -496,8 +496,8 @@ def validate(valloader, model, criterion, use_cuda, mode):
     end = time.time()
     bar = Bar(f'{mode}', max=len(valloader))
 
-    classwise_correct = torch.zeros(num_class)
-    classwise_num = torch.zeros(num_class)
+    classwise_correct = torch.zeros(num_class).cuda()
+    classwise_num = torch.zeros(num_class).cuda()
     section_acc = torch.zeros(3)
 
     with torch.no_grad():
@@ -519,10 +519,10 @@ def validate(valloader, model, criterion, use_cuda, mode):
 
             # classwise prediction
             pred_label = outputs.max(1)[1] # torch.Size([16])
-            pred_mask = (targets == pred_label).float() # torch.Size([16])
+            pred_mask = (targets == pred_label).float().cuda() # torch.Size([16])
             
             for i in range(num_class):
-                class_mask = (targets == i).float()
+                class_mask = (targets == i).float().cuda()
 
                 classwise_correct[i] += (class_mask * pred_mask).sum()
                 classwise_num[i] += class_mask.sum()
@@ -679,6 +679,8 @@ class WeightEMA(object):
     def step(self):
         one_minus_alpha = 1.0 - self.alpha
         for param, ema_param in zip(self.params, self.ema_params):
+            ema_param=ema_param.float()
+            param=param.float()
             ema_param.mul_(self.alpha)
             ema_param.add_(param * one_minus_alpha)
             # customized weight decay
