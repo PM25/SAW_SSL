@@ -492,8 +492,8 @@ def validate(valloader, model, criterion, use_cuda, mode):
     end = time.time()
     bar = Bar(f'{mode}', max=len(valloader))
 
-    classwise_correct = torch.zeros(num_class)
-    classwise_num = torch.zeros(num_class)
+    classwise_correct = torch.zeros(num_class).cuda()
+    classwise_num = torch.zeros(num_class).cuda()
     section_acc = torch.zeros(3)
 
     with torch.no_grad():
